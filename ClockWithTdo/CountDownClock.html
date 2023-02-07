@@ -1,0 +1,31 @@
+<html>
+  <label for="countdown-time">Countdown time:</label>
+  <input type="text" id="countdown-time" />
+  <button id="countdown-go">Go!</button>
+  <div id="countdown-display">Countdown: <span id="countdown-time-display"></span></div>
+  <script>
+    let countdownInterval;
+    let countdownTime;
+
+    document.getElementById("countdown-go").addEventListener("click", startCountdownTimer);
+
+    function startCountdownTimer() {
+      clearInterval(countdownInterval);
+      countdownTime = parseInt(document.getElementById("countdown-time").value);
+      if (!countdownTime || countdownTime <= 0) {
+        return alert("Invalid countdown time");
+      }
+      document.getElementById("countdown-time-display").innerHTML = countdownTime;
+      countdownInterval = setInterval(function() {
+        --countdownTime;
+        countdownTime = document.getElementById("countdown-time").value;
+        document.getElementById("countdown-time-display").innerHTML = countdownTime;
+        
+        if (countdownTime === 0) {
+          clearInterval(countdownInterval);
+          alert("Time's up!");
+        }
+      }, 1000);
+    }
+  </script>
+</html>

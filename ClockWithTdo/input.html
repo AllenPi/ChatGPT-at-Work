@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Event Planner</title>
+  <style>
+    /* Add your CSS styles here */
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="clock">
+      <p id="digital-clock"></p>
+    </div>
+  </div>
+
+
+<div id="timer1">
+  <label for="timer1-input">Timer 1:</label>
+  <input type="text" id="input1">
+  <p id="countdown1"></p>
+</div>
+
+<label for="countdown">Countdown time:</label>
+<input type="text" id="countdown-time" />
+<button id="countdown-go">Go!</button>
+
+
+
+
+
+  <div class="input-section">
+    <h3>What's next?</h3>
+    <input type="text" id="next-task">
+    <button id="next-button">Next</button>
+    <button id="done-button">Done</button>
+  </div>
+  <script>
+    // Add your JavaScript code here
+    // Digital Clock
+    const digitalClock = document.getElementById("digital-clock");
+    setInterval(() => {
+      const date = new Date();
+      digitalClock.innerHTML = date.toLocaleTimeString();
+    }, 1000);
+
+    // Timers
+    // Add code for countdown timers here
+ // Get input fields for timers
+const timer1Input = document.querySelector("#timer1-input");
+const timer2Input = document.querySelector("#timer2-input");
+const timer3Input = document.querySelector("#timer3-input");
+const timer4Input = document.querySelector("#timer4-input");
+
+// Start timer function
+function startTimer(timerId, inputId) {
+  // Get timer and input elements
+  const timer = document.querySelector(timerId);
+  const input = document.querySelector(inputId);
+
+  // Get time from input field
+  let time = input.value;
+
+  // Decrement time every second
+  let intervalId = setInterval(function() {
+    time--;
+    timer.innerHTML = time;
+    if (time === 0) {
+      clearInterval(intervalId);
+    }
+  }, 1000);
+}
+
+// Start timer 1
+timer1Input.addEventListener("change", function() {
+  startTimer("#timer1", "#timer1-input");
+});
+
+// Start timer 2
+timer2Input.addEventListener("change", function() {
+  startTimer("#timer2", "#timer2-input");
+});
+
+// Start timer 3
+timer3Input.addEventListener("change", function() {
+  startTimer("#timer3", "#timer3-input");
+});
+
+// Start timer 4
+timer4Input.addEventListener("change", function() {
+  startTimer("#timer4", "#timer4-input");
+});
+ function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+  }
+
+let countdownTime = 0;
+let countdownInterval = null;
+
+document.getElementById("countdown-go").addEventListener("click", startCountdownTimer);
+
+function startCountdownTimer() {
+    clearInterval(countdownInterval);
+    countdownTime = document.getElementById("countdown-time").value;
+    countdownInterval = setInterval(function() {
+        countdownTime--;
+        if (countdownTime === 0) {
+            clearInterval(countdownInterval);
+            alert("Time's up!");
+        }
+    }, 1000);
+}
+
+
+
+
+    // Next Task Input
+    const nextTaskInput = document.getElementById("next-task");
+    const nextButton = document.getElementById("next-button");
+    const doneButton = document.getElementById("done-button");
+    let todoList = [];
+
+    nextButton.addEventListener("click", () => {
+      if (nextTaskInput.value) {
+        todoList.push(nextTaskInput.value);
+        nextTaskInput.value = "";
+      }
+    });
+
+    doneButton.addEventListener("click", () => {
+      // Show the todo list in a new page
+    });
+  </script>
+</body>
+</html>
